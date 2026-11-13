@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spin Kelompok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body { display: grid; place-items: center; min-height: 100vh; text-align: center; }
+    main { position: relative; z-index: 1; padding: 40px 20px; display: grid; justify-items: center; }
+    .eyebrow { color: var(--yellow); font-weight: 700; font-size: .78rem; letter-spacing: .26em; text-transform: uppercase; }
+
+    /* Roda hero */
+    .wheel-wrap { position: relative; width: 230px; height: 230px; margin: 54px 0 8px; }
+    .wheel-wrap::before { /* glow */
+      content: ""; position: absolute; inset: -30px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 201, 60, .28), transparent 65%);
+      animation: pulse 3.2s ease-in-out infinite;
+    }
+    .wheel {
+      position: absolute; inset: 0; border-radius: 50%; border: 9px solid #fff;
+      background: conic-gradient(var(--coral) 0 16.66%, var(--yellow) 0 33.33%, var(--teal) 0 50%, var(--blue) 0 66.66%, var(--violet) 0 83.33%, var(--orange) 0);
+      box-shadow: var(--shadow);
+      animation: spin 14s linear infinite;
+      transition: filter .3s;
+    }
+    .wheel-wrap:hover .wheel { animation-duration: 2.4s; }
+    .hub { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px; border-radius: 50%;
+      background: #fff; color: var(--bg); display: grid; place-items: center; font-weight: 900; font-size: 1.5rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, .25); }
+    .pointer { position: absolute; left: 50%; top: -14px; margin-left: -17px; width: 0; height: 0; z-index: 2;
+      border-left: 17px solid transparent; border-right: 17px solid transparent; border-top: 30px solid var(--yellow);
+      filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .3)); transform-origin: 50% 0; animation: tick .5s ease-in-out infinite alternate; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes tick { to { transform: rotate(-9deg); } }
+    @keyframes pulse { 50% { opacity: .55; transform: scale(1.08); } }
+
+    h1 { font-size: clamp(2.8rem, 9vw, 5.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; margin-top: 18px; }
+    h1 .hl { background: linear-gradient(90deg, var(--yellow), var(--orange)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { max-width: 440px; margin: 16px auto 34px; color: var(--text-soft); font-size: 1.05rem; }
+
+    .fade { opacity: 0; transform: translateY(14px); animation: rise .7s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: calc(var(--i) * .1s); }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+  <span class="orb" style="--c:#ff6b6b;width:72px;height:72px;left:7%;top:9%;--d:6s"></span>
+  <span class="orb" style="--c:#4ecdc4;width:56px;height:56px;right:7%;top:17%;--d:8s"></span>
+  <span class="orb" style="--c:#5b8def;width:48px;height:48px;left:12%;bottom:15%;--d:7s"></span>
+  <span class="orb" style="--c:#b388ff;width:84px;height:84px;right:8%;bottom:9%;--d:9s"></span>
+  <span class="orb" style="--c:#ffa36c;width:36px;height:36px;left:63%;top:55%;--d:5s"></span>
+
+  <main>
+    <p class="eyebrow fade" style="--i:0">PPWEB · Kelompok 8</p>
+    <div class="wheel-wrap fade" style="--i:1" aria-hidden="true">
+      <div class="pointer"></div>
+      <div class="wheel"></div>
+      <div class="hub">?</div>
+    </div>
+    <h1 class="fade" style="--i:2">Spin <span class="hl">Kelompok</span></h1>
+    <p class="lead fade" style="--i:3">Putar roda atau tarik gacha, lalu biarkan nasib memilih satu nama secara acak.</p>
+    <a class="btn-3d fade" style="--i:4" href="login/">Go</a>
+  </main>
+</body>
+</html>
