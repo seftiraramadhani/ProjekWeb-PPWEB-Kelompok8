@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id" data-base="../">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detektif · Spin Kelompok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/detektif.css">
+</head>
+<body>
+  <div class="container page">
+    <header data-topbar data-active="detektif"></header>
+
+    <main class="dk-layout">
+      <!-- Panel kiri: pengaturan -->
+      <aside class="card stack" style="--gap:14px">
+        <h2>Pengaturan detektif</h2>
+
+        <div>
+          <label class="label" for="inNama">Tambah nama</label>
+          <div class="dk-row">
+            <input class="input" id="inNama" placeholder="Contoh: Hadi">
+            <button class="btn-pill" id="btnNama">Tambah</button>
+          </div>
+          <div class="dk-chips" id="listNama"></div>
+        </div>
+
+        <div>
+          <label class="label" for="inSoal">Tambah soal</label>
+          <div class="dk-row">
+            <input class="input" id="inSoal" placeholder="Tulis pertanyaan">
+            <button class="btn-pill" id="btnSoal">Tambah</button>
+          </div>
+          <div class="dk-chips" id="listSoal"></div>
+        </div>
+
+        <div>
+          <label class="label" for="inJumlah">Jumlah kelompok</label>
+          <div class="dk-row">
+            <input class="input dk-small" id="inJumlah" type="number" min="1" value="3">
+            <button class="btn-ghost" id="btnReset">Mulai ulang</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Panel kanan: arena -->
+      <section class="card dk-arena">
+        <h2>Spin Detektif</h2>
+        <span class="chip" id="status">Isi nama, soal, dan jumlah kelompok dulu</span>
+
+        <div id="wheelArea" class="dk-wheel-placeholder">Roda menyusul di langkah berikutnya</div>
+
+        <button class="btn-3d" id="btnSpin">Spin nama</button>
+
+        <div class="dk-groups" id="groups"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/detektif.js"></script>
+</body>
+</html>
