@@ -71,6 +71,7 @@ function render() {
   } else {
     $("status").textContent = `Siap! ${n} nama dibagi ke ${state.jumlah} kelompok`;
   }
+   roda.setItem(state.nama);
 }
 
 function tambahNama() {
@@ -115,4 +116,17 @@ $("inSoal").addEventListener("keydown", (e) => e.key === "Enter" && tambahSoal()
 $("inJumlah").addEventListener("input", ubahJumlah);
 $("btnReset").addEventListener("click", mulaiUlang);
 
+/* ---------- Roda (memakai wheel.js) ---------- */
+const roda = buatRoda($("wheel"), {
+  onSelesai: (indeks, nama) => {
+    $("status").textContent = "Terpilih: " + nama;
+    $("btnSpin").disabled = false;
+  }
+});
+
+// Sementara: tombol spin hanya menampilkan siapa yang terpilih
+$("btnSpin").addEventListener("click", () => {
+  $("btnSpin").disabled = true;
+  roda.putar();
+});
 render();

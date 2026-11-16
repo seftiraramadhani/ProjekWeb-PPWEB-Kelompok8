@@ -50,7 +50,10 @@
         <h2>Spin Detektif</h2>
         <span class="chip" id="status">Isi nama, soal, dan jumlah kelompok dulu</span>
 
-        <div id="wheelArea" class="dk-wheel-placeholder">Roda menyusul di langkah berikutnya</div>
+        <div class="dk-wheel-wrap">
+          <div class="dk-pointer"></div>
+          <canvas id="wheel" width="320" height="320"></canvas>
+        </div>
 
         <button class="btn-3d" id="btnSpin">Spin nama</button>
 
@@ -60,6 +63,7 @@
   </div>
 
   <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/wheel.js"></script>
   <script src="../assets/js/detektif.js"></script>
 </body>
 </html>
