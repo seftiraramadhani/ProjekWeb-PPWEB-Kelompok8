@@ -35,9 +35,9 @@
 .result.pop strong { animation: bump .5s cubic-bezier(.2, 1.6, .4, 1); }
 @keyframes bump { from { transform: scale(.4); opacity: 0; } }
 
-.done { margin-top: 22px; display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 14px 18px; border-radius: 16px; background: rgba(78, 205, 196, .16); border: 1px solid rgba(78, 205, 196, .5); font-weight: 600; font-size: .9rem; }
+.donebar { margin-top: 22px; display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 14px 18px; border-radius: 16px; background: rgba(78, 205, 196, .16); border: 1px solid rgba(78, 205, 196, .5); font-weight: 600; font-size: .9rem; }
 
-.done[hidden], .hint[hidden] { display: none; }
+.donebar[hidden], .hint[hidden] { display: none; }
 
 .groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-top: 22px; }
 .groups:empty { display: none; }

@@ -163,7 +163,6 @@
     if (state.names.length >= MAX_NAMES) return toast(`Maksimal ${MAX_NAMES} nama`);
     if (state.names.some((n) => n.toLowerCase() === name.toLowerCase())) return toast(`"${name}" sudah ada`);
     state.names.push(name);
-    state.G = Math.min(state.G, Math.max(1, state.names.length));
     render();
   }
 
@@ -223,16 +222,22 @@
   }
 
   async function save() {
-    const hasil = capacities().map((_, i) => ({ kelompok: `Kelompok ${i + 1}`, anggota: state.groups[i] || [], urutan_tampil: i + 1 }));
-    const payload = { jenis: "putar", hasil };
+    const kelompok = capacities().map((_, i) => ({
+      nama: `Kelompok ${i + 1}`,
+      urutan: i + 1,
+      anggota: (state.groups[i] || []).map((n) => ({ nama: n }))
+    }));
+    const payload = { jenis: "putar", kelompok };
     try { localStorage.setItem("sk_last_result", JSON.stringify(payload)); } catch (e) {}
     console.log("simpan_hasil:", payload);
     try {
       const res = await fetch("../api/simpan_hasil.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-      if (!res.ok) throw new Error(res.status);
-      toast("Hasil tersimpan ke database");
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.disimpan) toast("Hasil tersimpan ke database");
+      else if (res.ok) toast("Mode tamu: hasil tidak disimpan ke database");
+      else toast(data.pesan || "Gagal menyimpan hasil");
     } catch (e) {
-      toast("API simpan belum siap, hasil disimpan sementara di perangkat");
+      toast("Tidak bisa menghubungi server");
     }
   }
 
@@ -241,12 +246,13 @@
   $("chips").addEventListener("click", (e) => {
     const b = e.target.closest("[data-del]"); if (!b || started()) return;
     state.names.splice(+b.dataset.del, 1);
-    state.G = Math.min(state.G, Math.max(1, state.names.length));
+    if (state.names.length >= 2) state.G = Math.min(state.G, state.names.length);
     render();
   });
   $("groupInput").addEventListener("change", (e) => {
-    const v = Math.round(+e.target.value) || 1;
-    state.G = Math.min(Math.max(1, v), Math.max(1, state.names.length));
+    let v = Math.max(1, Math.round(+e.target.value) || 1);
+    if (state.names.length >= 2) v = Math.min(v, state.names.length);
+    state.G = v;
     render();
   });
   $("noRepeat").addEventListener("change", (e) => { state.noRepeat = e.target.checked; state.groups = []; state.last = null; render(); });
