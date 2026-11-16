@@ -1,0 +1,62 @@
+/* Spin Putar */
+.workspace { display: grid; grid-template-columns: 380px 1fr; gap: 22px; margin-top: 22px; align-items: start; }
+.side h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 14px; }
+.side .label { margin-top: 14px; }
+.row { display: flex; gap: 10px; align-items: center; }
+.row.wrap { flex-wrap: wrap; margin-top: 16px; }
+.input.small { width: 110px; }
+.count { margin: 14px 0 8px; font-size: .82rem; color: var(--text-soft); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; }
+.chip { transition: opacity .2s, transform .2s; animation: pop .25s ease; }
+.chip.done { opacity: .45; text-decoration: line-through; }
+.chip.last { background: var(--yellow); color: var(--bg); }
+@keyframes pop { from { transform: scale(.8); opacity: 0; } }
+.check { display: flex; gap: 10px; align-items: center; margin-top: 18px; font-size: .9rem; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--yellow); }
+.hint { margin-top: 12px; font-size: .78rem; color: var(--text-soft); }
+
+.stage { text-align: center; padding: 28px 24px 30px; }
+.stage h1 { font-size: 1.15rem; font-weight: 800; }
+.pill { display: inline-block; margin: 14px 0 26px; padding: 7px 20px; border-radius: 999px; background: rgba(255, 255, 255, .13); font-weight: 700; font-size: .85rem; }
+
+.wheel-box { position: relative; width: min(100%, 360px); aspect-ratio: 1; margin: 0 auto 30px; }
+.wheel-box canvas { width: 100%; height: 100%; display: block; border-radius: 50%; box-shadow: 0 20px 44px rgba(10, 4, 40, .5); }
+.wheel-box .pointer {
+  position: absolute; left: 50%; top: -14px; margin-left: -16px; z-index: 2; width: 0; height: 0;
+  border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 28px solid var(--yellow);
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .35)); transform-origin: 50% 0;
+}
+.wheel-box.ticking .pointer { animation: flick .12s ease-out; }
+@keyframes flick { 40% { transform: rotate(-14deg); } }
+
+.result { margin-top: 26px; display: grid; gap: 2px; justify-items: center; }
+.small-text { font-size: .85rem; }
+.result strong { font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 900; line-height: 1.1; color: var(--yellow); word-break: break-word; }
+.result.pop strong { animation: bump .5s cubic-bezier(.2, 1.6, .4, 1); }
+@keyframes bump { from { transform: scale(.4); opacity: 0; } }
+
+.donebar { margin-top: 22px; display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 14px 18px; border-radius: 16px; background: rgba(78, 205, 196, .16); border: 1px solid rgba(78, 205, 196, .5); font-weight: 600; font-size: .9rem; }
+
+.donebar[hidden], .hint[hidden] { display: none; }
+
+.groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-top: 22px; }
+.groups:empty { display: none; }
+.g-card { padding: 16px 18px; border-radius: 18px; background: var(--bg-deep); border: 2px dashed rgba(255, 255, 255, .2); }
+.g-card.active { border: 2px solid var(--yellow); }
+.g-card h3 { font-size: .95rem; font-weight: 800; margin-bottom: 10px; display: flex; justify-content: space-between; }
+.g-card h3 span { color: var(--text-soft); font-weight: 600; font-size: .8rem; }
+.g-card ul { list-style: none; display: grid; gap: 6px; }
+.g-card li { padding: 7px 12px; border-radius: 10px; background: rgba(255, 255, 255, .1); font-weight: 600; font-size: .88rem; animation: pop .3s ease; }
+.g-card li.empty { background: none; border: 1px dashed rgba(255, 255, 255, .18); color: rgba(255, 255, 255, .35); }
+
+.toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 50; transform: translate(-50%, 30px); opacity: 0; pointer-events: none;
+  padding: 12px 22px; border-radius: 999px; background: #fff; color: var(--bg); font-weight: 600; font-size: .9rem; box-shadow: var(--shadow); transition: .25s;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 40; overflow: hidden; }
+.confetti i { position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 2px; animation: fall 1.9s ease-in forwards; }
+@keyframes fall { to { transform: translate(var(--dx), 105vh) rotate(var(--r)); opacity: .9; } }
+
+@media (max-width: 900px) { .workspace { grid-template-columns: 1fr; } }
