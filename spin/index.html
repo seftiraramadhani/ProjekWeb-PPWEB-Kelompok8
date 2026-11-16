@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="id" data-base="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spin Putar · Spin Kelompok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="spin.css">
+</head>
+<body>
+  <div class="container page">
+    <header data-topbar data-active="spin"></header>
+
+    <div class="workspace">
+      <!-- Panel kiri: daftar nama -->
+      <aside class="card side">
+        <h2>Daftar nama</h2>
+
+        <label class="label" for="nameInput">Tambah nama</label>
+        <form class="row" id="addForm" autocomplete="off">
+          <input class="input" id="nameInput" maxlength="16" placeholder="Contoh: Hadi">
+          <button class="btn-pill" type="submit">Tambah</button>
+        </form>
+
+        <p class="count" id="countText">0 nama</p>
+        <div class="chips" id="chips" aria-live="polite"></div>
+
+        <label class="label" for="groupInput">Jumlah kelompok</label>
+        <input class="input small" id="groupInput" type="number" min="1" value="2" inputmode="numeric">
+
+        <label class="check">
+          <input type="checkbox" id="noRepeat" checked>
+          <span>Jangan pilih nama yang sama lagi</span>
+        </label>
+
+        <div class="row wrap">
+          <button class="btn-ghost" id="resetResult" type="button">Reset hasil</button>
+          <button class="btn-ghost" id="resetAll" type="button">Reset daftar</button>
+        </div>
+        <p class="hint" id="lockHint" hidden>Daftar terkunci selama pembagian berjalan. Pakai "Reset hasil" untuk mengubah.</p>
+      </aside>
+
+      <!-- Panel kanan: roda -->
+      <section class="card stage">
+        <h1>Spin Putar</h1>
+        <p class="pill" id="status">Tambahkan minimal 2 nama</p>
+
+        <div class="wheel-box">
+          <span class="pointer" aria-hidden="true"></span>
+          <canvas id="wheel" width="340" height="340" role="img" aria-label="Roda nama"></canvas>
+        </div>
+
+        <button class="btn-3d" id="spinBtn" type="button">Putar</button>
+
+        <div class="result" id="result" aria-live="polite">
+          <span class="muted small-text" id="resLabel">Terpilih</span>
+          <strong id="resName">?</strong>
+          <span class="muted small-text" id="resNote">tekan Putar untuk memulai</span>
+        </div>
+
+        <div class="done" id="doneBar" hidden>
+          <span>Semua nama sudah terbagi ke kelompok.</span>
+          <button class="btn-pill" id="saveBtn" type="button">Simpan hasil</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Hasil kelompok -->
+    <section class="groups" id="groups" aria-label="Hasil kelompok"></section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script src="../assets/js/common.js"></script>
+  <script src="spin.js"></script>
+</body>
+</html>
