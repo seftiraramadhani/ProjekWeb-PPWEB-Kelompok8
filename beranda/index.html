@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="id" data-base="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beranda · Spin Kelompok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="beranda.css">
+</head>
+<body>
+  <div class="container page">
+    <header data-topbar data-active="beranda"></header>
+
+    <section class="hello">
+      <p class="hello-sub">Beranda</p>
+      <h1>Halo, <span id="userName">Tamu</span> <span id="guestBadge" class="badge" hidden>Tamu</span></h1>
+      <p class="muted">Mau ngacak apa hari ini? Pilih salah satu mode di bawah.</p>
+    </section>
+
+    <main class="bento">
+      <!-- SPIN -->
+      <a class="tile t-spin" href="../spin/" style="--accent:var(--coral)">
+        <span class="num">01</span>
+        <div class="art art-spin" aria-hidden="true"><i class="needle"></i><b></b></div>
+        <div class="txt"><h2>Spin</h2><p>Putar roda, satu nama terpilih.</p></div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+
+      <!-- GACHA -->
+      <a class="tile t-gacha" href="../gacha/" style="--accent:var(--teal)">
+        <span class="num">02</span>
+        <div class="art art-gacha" aria-hidden="true">
+          <div class="globe">
+            <i style="--c:#ff8f8f;--x:12%;--y:56%;--dl:0s"></i>
+            <i style="--c:#ffd36a;--x:40%;--y:60%;--dl:.15s"></i>
+            <i style="--c:#7ee2d6;--x:62%;--y:48%;--dl:.3s"></i>
+            <i style="--c:#c8a8ff;--x:26%;--y:30%;--dl:.1s"></i>
+            <i style="--c:#8fb3ff;--x:50%;--y:26%;--dl:.25s"></i>
+          </div>
+          <div class="base"><span></span></div>
+        </div>
+        <div class="txt"><h2>Gacha</h2><p>Tarik tuas, dapat nomor urut.</p></div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+
+      <!-- DETEKTIF -->
+      <a class="tile t-detektif" href="../detektif/" style="--accent:var(--violet)">
+        <span class="num">03</span>
+        <div class="art art-det" aria-hidden="true">
+          <svg viewBox="0 0 120 110">
+            <ellipse cx="52" cy="92" rx="34" ry="16" fill="#fff" opacity=".9"/>
+            <circle cx="52" cy="58" r="17" fill="#fff"/>
+            <ellipse cx="52" cy="46" rx="29" ry="6" fill="#1d1250"/>
+            <path d="M35 46c0-16 34-16 34 0z" fill="#1d1250"/>
+            <g class="lens">
+              <circle cx="84" cy="60" r="20" fill="rgba(255,255,255,.16)" stroke="#ffc93c" stroke-width="6"/>
+              <path d="m98 75 14 16" stroke="#ffc93c" stroke-width="8" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="txt"><h2>Detektif</h2><p>Jawab soal, jadi ketua kelompok.</p></div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+
+      <!-- DATA -->
+      <a class="tile t-data" href="../data/" style="--accent:var(--yellow)">
+        <span class="num">04</span>
+        <div class="art art-data" aria-hidden="true">
+          <div class="row"><em>1</em><span></span><span></span></div>
+          <div class="row"><em>2</em><span></span><span></span></div>
+          <div class="row"><em>3</em><span></span><span></span></div>
+        </div>
+        <div class="txt"><h2>Tampilkan Data</h2><p>Lihat kelompok & urutan tampil yang sudah tersimpan.</p></div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+
+      <!-- EXIT (bentuk panah sesuai sketsa) -->
+      <a class="tile t-exit" href="../index.html" id="exitLink">
+        <span class="arrow"><b>Exit</b><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </main>
+  </div>
+
+  <script src="../assets/js/common.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const u = SK.getUser();
+      document.getElementById("userName").textContent = u.name;
+      document.getElementById("guestBadge").hidden = !u.guest;
+    });
+  </script>
+</body>
+</html>

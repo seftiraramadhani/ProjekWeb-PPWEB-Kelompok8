@@ -1,0 +1,101 @@
+/* Beranda - bento grid sesuai sketsa: 3 kartu atas, Data lebar + Exit panah di bawah */
+.hello { margin: 34px 0 26px; }
+.hello-sub { color: var(--yellow); font-weight: 700; font-size: .78rem; letter-spacing: .24em; text-transform: uppercase; }
+.hello h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 900; letter-spacing: -.02em; line-height: 1.15; }
+.hello .badge { vertical-align: middle; margin-left: 6px; }
+
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+.t-spin, .t-gacha, .t-detektif { grid-column: span 2; }
+.t-data { grid-column: span 4; }
+.t-exit { grid-column: span 2; }
+
+.tile {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 300px; padding: 22px; border-radius: 28px; isolation: isolate;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .11), rgba(255, 255, 255, .04));
+  border: 1px solid var(--line);
+  transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s, border-color .25s;
+  opacity: 0; animation: rise .6s cubic-bezier(.2, .8, .2, 1) forwards;
+}
+.tile::before { /* cahaya warna aksen di pojok */
+  content: ""; position: absolute; z-index: -1; width: 260px; height: 260px; right: -90px; top: -90px; border-radius: 50%;
+  background: var(--accent); opacity: .22; filter: blur(30px); transition: opacity .3s, transform .4s;
+}
+.tile:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 24px 44px rgba(8, 3, 36, .5); }
+.tile:hover::before { opacity: .42; transform: scale(1.2); }
+.t-spin { animation-delay: .05s; } .t-gacha { animation-delay: .12s; } .t-detektif { animation-delay: .19s; }
+.t-data { animation-delay: .26s; } .t-exit { animation-delay: .33s; }
+@keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+.num { position: absolute; top: 18px; left: 22px; font-weight: 800; font-size: .78rem; letter-spacing: .15em; color: var(--accent); }
+.txt h2 { font-size: 1.6rem; font-weight: 800; line-height: 1.15; }
+.txt p { color: var(--text-soft); font-size: .9rem; margin-top: 4px; max-width: 26ch; }
+.go {
+  position: absolute; right: 20px; bottom: 20px; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: var(--bg-deep); font-weight: 800; font-size: 1.2rem; transition: transform .25s;
+}
+.tile:hover .go { transform: translateX(5px) rotate(-45deg); }
+.art { flex: 1; display: grid; place-items: center; margin: 16px 0 10px; position: relative; }
+
+/* --- Mini art: Spin (roda berputar saat hover) --- */
+.art-spin b {
+  width: 128px; height: 128px; border-radius: 50%; border: 6px solid #fff;
+  background: conic-gradient(var(--coral) 0 16.66%, var(--yellow) 0 33.33%, var(--teal) 0 50%, var(--blue) 0 66.66%, var(--violet) 0 83.33%, var(--orange) 0);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .3); transition: transform 1.6s cubic-bezier(.1, .7, .2, 1);
+}
+.tile:hover .art-spin b { transform: rotate(900deg); }
+.art-spin .needle { position: absolute; top: calc(50% - 76px); left: 50%; margin-left: -11px; border: 11px solid transparent; border-top: 20px solid var(--yellow); z-index: 1; filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .3)); }
+
+/* --- Mini art: Gacha (bola memantul saat hover) --- */
+.art-gacha { display: flex; flex-direction: column; align-items: center; }
+.globe { position: relative; width: 112px; height: 112px; border-radius: 50%; border: 5px solid rgba(255, 255, 255, .7); background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .35), rgba(255, 255, 255, .06)); }
+.globe i { position: absolute; left: var(--x); top: var(--y); width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #fff, var(--c) 60%); }
+.tile:hover .globe i { animation: bounce .55s ease-in-out infinite alternate; animation-delay: var(--dl); }
+@keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-30px) translateX(6px); } }
+.base { width: 124px; height: 54px; margin-top: -8px; border-radius: 16px; background: var(--coral); display: grid; place-items: center; box-shadow: 0 10px 18px rgba(0, 0, 0, .3); }
+.base span { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 4px solid var(--bg-deep); transition: transform .6s; }
+.tile:hover .base span { transform: rotate(360deg); }
+
+/* --- Mini art: Detektif (kaca pembesar bergerak saat hover) --- */
+.art-det svg { width: 150px; overflow: visible; }
+.art-det .lens { transition: transform .8s cubic-bezier(.3, .7, .2, 1); }
+.tile:hover .art-det .lens { transform: translate(-46px, 4px) rotate(-8deg); }
+
+/* --- Mini art: Data (baris tabel masuk saat hover) --- */
+.t-data { flex-direction: row; align-items: center; gap: 24px; min-height: 220px; }
+.t-data .art { margin: 0; flex: 0 0 240px; display: block; }
+.art-data .row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.art-data em { font-style: normal; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: .72rem; font-weight: 800; color: var(--bg-deep); background: var(--yellow); }
+.art-data .row:nth-child(2) em { background: #dcd6f0; } .art-data .row:nth-child(3) em { background: var(--orange); }
+.art-data span { height: 12px; border-radius: 99px; background: rgba(255, 255, 255, .22); transition: width .5s; }
+.art-data span:nth-of-type(1) { width: 70px; } .art-data span:nth-of-type(2) { width: 56px; background: rgba(255, 255, 255, .13); }
+.tile:hover .art-data span:nth-of-type(1) { width: 96px; } .tile:hover .art-data span:nth-of-type(2) { width: 82px; }
+.t-data .txt { flex: 1; padding-right: 50px; }
+
+/* --- Exit: tombol panah --- */
+.t-exit { padding: 0; min-height: 220px; background: none; border: 0; display: flex; align-items: center; justify-content: stretch; }
+.t-exit::before { display: none; }
+.t-exit:hover { box-shadow: none; }
+.arrow {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; height: 150px; padding: 0 36px 0 30px;
+  background: var(--coral); color: #fff; font-size: 1.6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  clip-path: polygon(0 22%, 62% 22%, 62% 0, 100% 50%, 62% 100%, 62% 78%, 0 78%); border-radius: 0;
+  transition: filter .2s, transform .25s;
+}
+.arrow svg { width: 34px; height: 34px; display: none; }
+.arrow b { padding-right: 62px; }
+.t-exit:hover .arrow { transform: translateX(8px); filter: brightness(1.1); }
+
+@media (max-width: 860px) {
+  .bento { grid-template-columns: 1fr 1fr; }
+  .t-spin, .t-gacha { grid-column: span 1; }
+  .t-detektif, .t-data, .t-exit { grid-column: span 2; }
+  .t-data { flex-direction: column; align-items: stretch; }
+  .t-data .art { flex-basis: auto; }
+  .t-data .txt { padding-right: 0; }
+}
+@media (max-width: 560px) {
+  .bento { grid-template-columns: 1fr; }
+  .tile, .t-spin, .t-gacha, .t-detektif, .t-data, .t-exit { grid-column: 1; }
+  .tile { min-height: 250px; }
+}
