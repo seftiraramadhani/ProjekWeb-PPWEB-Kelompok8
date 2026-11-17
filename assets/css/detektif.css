@@ -34,3 +34,17 @@
   border-left: 14px solid transparent; border-right: 14px solid transparent;
   border-top: 24px solid var(--yellow);
 }
+
+.dk-group { align-content: start; }
+.dk-group.aktif { border: 2px solid var(--yellow); }
+.dk-slot.isi { color: var(--text); background: rgba(255, 255, 255, .1); border-style: solid; font-weight: 600; }
+.dk-slot.ketua { background: var(--yellow); color: var(--bg); }
+
+.dk-panel {
+  width: 100%; max-width: 460px; padding: 16px; border-radius: 16px;
+  background: rgba(0, 0, 0, .22); border: 1px solid var(--line);
+  display: grid; gap: 12px; justify-items: center;
+}
+.dk-panel[hidden] { display: none; }
+.dk-soal { font-size: 1.15rem; font-weight: 700; color: var(--yellow); }
+.dk-pilih { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
