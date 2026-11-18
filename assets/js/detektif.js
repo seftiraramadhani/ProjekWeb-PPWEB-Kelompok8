@@ -127,6 +127,7 @@ function render() {
     $("soalTeks").textContent = state.soalAktif;
   }
   renderPilih();
+  $("panelSimpan").hidden = state.fase !== "selesai";
 
   roda.setItem(state.fase === "setup" || state.fase === "selesai" ? state.nama : poolRoda());
 
@@ -215,6 +216,42 @@ $("btnSalah").addEventListener("click", () => {
   render();
 });
 
+/* ---------- simpan hasil ke database ---------- */
+async function simpanHasil() {
+  if (state.fase !== "selesai") return;
+
+  const kelompok = state.kelompok.map((k, i) => ({
+    nama: "Kelompok " + (i + 1),
+    urutan: i + 1,
+    anggota: [{ nama: k.ketua, ketua: true }, ...k.anggota.map((a) => ({ nama: a }))],
+  }));
+
+  $("btnSimpan").disabled = true;
+  $("pesanSimpan").textContent = "Menyimpan...";
+
+  try {
+    const res = await fetch("../api/simpan_hasil.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ jenis: "detektif", kelompok }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.disimpan) {
+      $("pesanSimpan").textContent = "Hasil tersimpan ke database";   // tombol tetap mati agar tidak tersimpan dua kali
+    } else if (res.ok) {
+      $("pesanSimpan").textContent = "Mode tamu: hasil tidak disimpan ke database";
+    } else {
+      $("pesanSimpan").textContent = data.pesan || "Gagal menyimpan hasil";
+      $("btnSimpan").disabled = false;
+    }
+  } catch (e) {
+    $("pesanSimpan").textContent = "Tidak bisa menghubungi server";
+    $("btnSimpan").disabled = false;
+  }
+}
+
+$("btnSimpan").addEventListener("click", simpanHasil);
+
 /* ---------- pengaturan (hanya saat belum mulai) ---------- */
 function tambahNama() {
   if (terkunci()) return;
@@ -253,6 +290,8 @@ function mulaiUlang() {
     nama: [], soal: [], jumlah: 3, fase: "setup",
     kelompok: [], kapasitas: [], giliran: 0, gagal: [], calon: null, soalAktif: "",
   });
+  $("btnSimpan").disabled = false;
+  $("pesanSimpan").textContent = "";
   $("inJumlah").value = 3;
   render();
 }
