@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="id" data-base="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spin Gacha · Spin Kelompok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="gacha.css">
+</head>
+<body>
+  <div class="container page">
+    <header data-topbar data-active="gacha"></header>
+
+    <div class="workspace">
+      <!-- Panel kiri: daftar kelompok -->
+      <aside class="card side">
+        <h2>Daftar kelompok</h2>
+
+        <label class="label" for="groupName">Tambah kelompok</label>
+        <form class="row" id="addForm" autocomplete="off">
+          <input class="input" id="groupName" maxlength="20" placeholder="Contoh: Kelompok 5">
+          <button class="btn-pill" type="submit">Tambah</button>
+        </form>
+
+        <p class="count" id="countText">0 kelompok</p>
+        <div class="chips" id="chips" aria-live="polite"></div>
+
+        <label class="check">
+          <input type="checkbox" id="noRepeat" checked>
+          <span>Jangan pilih nomor yang sama lagi</span>
+        </label>
+
+        <div class="row wrap">
+          <button class="btn-ghost" id="resetResult" type="button">Reset hasil</button>
+          <button class="btn-ghost" id="resetAll" type="button">Reset daftar</button>
+        </div>
+        <p class="hint" id="lockHint" hidden>Daftar terkunci selama undian berjalan. Pakai "Reset hasil" untuk mengubah.</p>
+      </aside>
+
+      <!-- Panel kanan: mesin gacha -->
+      <section class="card stage">
+        <h1>Spin Gacha</h1>
+        <p class="pill" id="status">Tambahkan minimal 2 kelompok</p>
+
+        <div class="gacha">
+          <div class="globe-wrap"><canvas id="globe" width="300" height="300" role="img" aria-label="Bola-bola bernomor di dalam mesin gacha"></canvas></div>
+          <div class="machine">
+            <button class="knob" id="knob" type="button" aria-label="Tuas gacha"><i></i></button>
+            <div class="slot" id="slot"></div>
+          </div>
+        </div>
+
+        <button class="btn-3d" id="pullBtn" type="button">Tarik tuas</button>
+
+        <div class="result" id="result" aria-live="polite">
+          <span class="muted small-text" id="resLabel">Nomor urut tampil</span>
+          <strong id="resName">?</strong>
+          <span class="muted small-text" id="resNote">tarik tuas untuk memulai</span>
+        </div>
+
+        <div class="donebar" id="doneBar" hidden>
+          <span>Semua kelompok sudah mendapat nomor urut.</span>
+          <button class="btn-pill" id="saveBtn" type="button">Simpan hasil</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Urutan tampil -->
+    <section class="order" id="order" aria-label="Urutan tampil"></section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script src="../assets/js/common.js"></script>
+  <script src="gacha.js"></script>
+</body>
+</html>
