@@ -1,0 +1,38 @@
+.dt-hero {
+  margin-top: 22px; padding: 28px 32px; border-radius: 26px; box-shadow: var(--shadow);
+  background: linear-gradient(135deg, #5b3fd1, #a972ff);
+}
+.dt-hero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 800; }
+.dt-hero p { margin-top: 4px; color: rgba(255, 255, 255, .9); }
+
+.dt-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 18px; }
+.dt-stats .card { padding: 16px 20px; display: grid; gap: 2px; }
+.dt-stats strong { font-size: 2rem; font-weight: 800; line-height: 1.2; }
+.dt-stats .kuning { color: var(--yellow); }
+
+.dt-tabel { margin-top: 18px; padding: 8px 24px; }
+.dt-kepala, .dt-baris { display: grid; grid-template-columns: 140px 180px 1fr; gap: 14px; align-items: center; }
+.dt-kepala { padding: 16px 0 12px; font-size: .8rem; font-weight: 700; color: var(--text-soft); }
+.dt-baris { padding: 14px 0; border-top: 1px solid var(--line); }
+.dt-baris .nama { font-weight: 800; }
+.dt-anggota { display: flex; flex-wrap: wrap; gap: 8px; }
+.dt-anggota .chip { padding: 5px 14px; font-size: .85rem; }
+.dt-anggota .chip.ketua { background: var(--yellow); color: var(--bg); }
+
+.dt-medali {
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: var(--bg); background: rgba(255, 255, 255, .5);
+}
+.dt-medali.m1 { background: var(--yellow); }
+.dt-medali.m2 { background: #d9d6ee; }
+.dt-medali.m3 { background: var(--orange); }
+
+.dt-pesan { padding: 22px 0; text-align: center; }
+.dt-pesan[hidden] { display: none; }
+.dt-aksi { margin-top: 18px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .dt-kepala { display: none; }
+  .dt-baris { grid-template-columns: 44px 1fr; }
+  .dt-baris .dt-anggota { grid-column: 1 / -1; }
+}
