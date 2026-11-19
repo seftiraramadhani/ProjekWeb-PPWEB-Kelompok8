@@ -199,6 +199,7 @@ $("btnSpin").addEventListener("click", () => {
 
 $("btnBenar").addEventListener("click", () => {
   if (state.fase !== "jawab") return;
+  Suara.benar();
   state.kelompok[state.giliran].ketua = state.calon;
   state.calon = null;
   state.fase = "pilih";
@@ -208,6 +209,7 @@ $("btnBenar").addEventListener("click", () => {
 
 $("btnSalah").addEventListener("click", () => {
   if (state.fase !== "jawab") return;
+  Suara.salah();
   if (!state.gagal.includes(state.calon)) state.gagal.push(state.calon);
   state.calon = null;
   // Kalau semua nama yang tersisa sudah gagal, kosongkan daftar gagal supaya spin tidak buntu

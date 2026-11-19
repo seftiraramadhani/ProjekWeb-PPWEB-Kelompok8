@@ -10,6 +10,34 @@
 
 const WARNA_RODA = ["#ff6b6b", "#ffc93c", "#4ecdc4", "#5b8def", "#b388ff", "#ffa36c"];
 
+/* ---------- Suara (menghormati tombol suara di topbar) ---------- */
+const Suara = (() => {
+  let ctx;
+  function audio() {
+    if (typeof SK === "undefined" || !SK.soundOn()) return null;
+    try {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state === "suspended") ctx.resume();
+      return ctx;
+    } catch (e) { return null; }
+  }
+  function bip(frek, durasi, jenis = "triangle", vol = 0.06, tunda = 0) {
+    const a = audio(); if (!a) return;
+    const o = a.createOscillator(), g = a.createGain(), t = a.currentTime + tunda;
+    o.type = jenis; o.frequency.value = frek;
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + durasi);
+    o.connect(g).connect(a.destination); o.start(t); o.stop(t + durasi);
+  }
+  return {
+    siap: () => audio(),
+    tik: () => bip(880, 0.04, "square", 0.025),
+    fanfare: () => [523, 659, 784, 1047].forEach((f, i) => bip(f, 0.28, "triangle", 0.07, i * 0.11)),
+    benar: () => [659, 880].forEach((f, i) => bip(f, 0.18, "triangle", 0.07, i * 0.12)),
+    salah: () => [330, 220].forEach((f, i) => bip(f, 0.25, "sawtooth", 0.04, i * 0.16)),
+  };
+})();
+
 function buatRoda(canvas, opsi = {}) {
   const g = canvas.getContext("2d");
   const r = canvas.width / 2;
@@ -81,7 +109,9 @@ function buatRoda(canvas, opsi = {}) {
     let putaran = targetAkhir - awal;
     while (putaran > 0) putaran -= Math.PI * 2;
     putaran -= Math.PI * 2 * (5 + Math.floor(Math.random() * 3)); // 5-7 putaran
-
+    
+    Suara.siap();                 // membuka audio saat tombol diklik
+    let idxTerakhir = -1;
     const mulai = performance.now();
     const sudutMulai = sudut;
     const namaTerpilih = item[terpilih];
@@ -89,11 +119,18 @@ function buatRoda(canvas, opsi = {}) {
     function langkah(t) {
       const p = Math.min((t - mulai) / durasi, 1);
       sudut = sudutMulai + putaran * (1 - Math.pow(1 - p, 3));
+      const TAU = Math.PI * 2;
+      const idx = Math.floor((((-sudut) % TAU) + TAU) % TAU / irisan) % n;
+      if (idx !== idxTerakhir) {
+      if (idxTerakhir !== -1) Suara.tik();   // tik tiap irisan melewati penunjuk
+      idxTerakhir = idx;
+      }
       gambar();
       if (p < 1) {
         requestAnimationFrame(langkah);
       } else {
         sedangPutar = false;
+        Suara.fanfare();
         onSelesai(terpilih, namaTerpilih);
       }
     }
