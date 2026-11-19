@@ -35,6 +35,13 @@ function buatBaris(k, i) {
     wadah.appendChild(chip);
   });
 
+    if (k.anggota.length === 0) {
+    const kosong = document.createElement("span");
+    kosong.className = "chip";
+    kosong.textContent = "Belum ada anggota";
+    wadah.appendChild(kosong);
+  }
+
   baris.append(medali, nama, wadah);
   return baris;
 }
@@ -49,7 +56,8 @@ function isi(d) {
 
   const waktu = new Date(d.sesi.waktu.replace(" ", "T"));
   const teksWaktu = isNaN(waktu) ? "" : " · " + waktu.toLocaleString("id-ID");
-  $("info").textContent = "Hasil terakhir: " + (NAMA_JENIS[d.sesi.jenis] || d.sesi.jenis) + teksWaktu;
+    const tambahan = d.urutan_dari ? " · urutan tampil dari Gacha" : "";
+  $("info").textContent = "Hasil terakhir: " + (NAMA_JENIS[d.sesi.jenis] || d.sesi.jenis) + teksWaktu + tambahan;
 }
 
 async function muat() {
