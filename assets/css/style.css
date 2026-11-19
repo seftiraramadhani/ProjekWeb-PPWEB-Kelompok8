@@ -40,6 +40,7 @@ body {
   overflow-x: hidden;
 }
 
+[hidden] { display: none !important; }   /* atribut hidden selalu menang atas display bawaan komponen */
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
 :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }

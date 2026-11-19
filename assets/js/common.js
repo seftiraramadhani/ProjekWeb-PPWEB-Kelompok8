@@ -7,13 +7,25 @@
 const SK = {
   base: document.documentElement.dataset.base || "../",
 
-  // TODO (Tim B): ganti isi fungsi ini dengan fetch('api/me.php')
-  getUser() {
+  // Ambil data sesi dari api/cek_sesi.php (asinkron: pakai `await SK.getUser()`).
+  //   -> { name, guest }          sudah masuk (guest = true kalau mode tamu)
+  //   -> null                     belum masuk (server membalas 401)
+  //   -> { name:"Tamu", guest:true, offline:true }   server tidak terjangkau (halaman tetap bisa dibuka)
+  async getUser() {
     try {
-      const u = JSON.parse(localStorage.getItem("sk_user"));
-      if (u && u.name) return u;
-    } catch (e) {}
-    return { name: "Tamu", guest: true };
+      const r = await fetch(SK.base + "api/cek_sesi.php", { credentials: "same-origin" });
+      if (r.status === 401) return null;
+      const d = await r.json();
+      return d.login ? { name: d.username, guest: !!d.tamu } : null;
+    } catch (e) {
+      return { name: "Tamu", guest: true, offline: true };
+    }
+  },
+
+  // Keluar: panggil api/logout.php (POST), lalu kembali ke halaman Go.
+  async logout() {
+    try { await fetch(SK.base + "api/logout.php", { method: "POST", credentials: "same-origin" }); } catch (e) {}
+    location.href = SK.base + "index.html";
   },
 
   soundOn() {
@@ -74,5 +86,13 @@ function renderTopbar() {
   snd.addEventListener("click", () => { SK.setSound(!SK.soundOn()); paintSound(); });
   paintSound();
 }
+
+// Semua tombol Exit (menu titik tiga, kartu Exit di Beranda) memicu logout lebih dulu.
+document.addEventListener("click", (e) => {
+  const exit = e.target.closest("[data-exit], a.exit");
+  if (!exit) return;
+  e.preventDefault();
+  SK.logout();
+});
 
 document.addEventListener("DOMContentLoaded", renderTopbar);
