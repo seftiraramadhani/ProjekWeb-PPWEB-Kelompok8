@@ -53,6 +53,7 @@ try {
     if (!isset($kelompok[$nama])) {
       $kelompok[$nama] = ['nama'=>$nama, 'urutan'=>$b['urutan_tampil'], 'anggota'=>[]];
     }
+        if ($b['nama_anggota'] === '') continue;   // baris penanda gacha, bukan anggota sungguhan
     $kelompok[$nama]['anggota'][] = ['nama'=>$b['nama_anggota'], 'ketua'=>(bool)$b['is_ketua']];
     $jumlahAnggota++;
   }

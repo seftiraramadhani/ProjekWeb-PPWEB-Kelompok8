@@ -34,8 +34,14 @@ foreach ($kelompok as $i => $k) {
   $namaKel = mb_substr(trim($k['nama'] ?? ''), 0, 50);
   $urutan  = isset($k['urutan']) ? (int)$k['urutan'] : ($i + 1);
   $anggota = $k['anggota'] ?? [];
-  if ($namaKel === '' || !is_array($anggota) || count($anggota) < 1 || count($anggota) > 100) {
+  if ($namaKel === '' || !is_array($anggota) || count($anggota) > 100
+      || (count($anggota) < 1 && $jenis !== 'gacha')) {
     balas(400, ['ok'=>false, 'pesan'=>'Data kelompok tidak valid.']);
+  }
+  if (count($anggota) === 0) {
+    // Gacha: hanya urutan tampil. Simpan 1 baris penanda tanpa nama anggota.
+    $baris[] = [$namaKel, '', 0, $urutan];
+    continue;
   }
   foreach ($anggota as $a) {
     $namaAng = mb_substr(trim($a['nama'] ?? ''), 0, 50);
