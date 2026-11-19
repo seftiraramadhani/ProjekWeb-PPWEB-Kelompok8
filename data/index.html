@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id" data-base="../">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Kelompok · Spin Kelompok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="data.css">
+</head>
+<body>
+  <div class="container page">
+    <header data-topbar data-active="data"></header>
+
+    <section class="dt-hero">
+      <h1>Data Kelompok</h1>
+      <p>Siapa ada di kelompok berapa, dan kelompok mana tampil lebih dulu.</p>
+    </section>
+
+    <section class="dt-stats">
+      <div class="card"><span class="muted">Jumlah kelompok</span><strong id="stKelompok">0</strong></div>
+      <div class="card"><span class="muted">Jumlah anggota</span><strong id="stAnggota">0</strong></div>
+      <div class="card"><span class="muted">Tampil pertama</span><strong class="kuning" id="stPertama">-</strong></div>
+    </section>
+
+    <section class="card dt-tabel">
+      <div class="dt-kepala"><span>Urutan tampil</span><span>Kelompok</span><span>Anggota</span></div>
+      <div id="baris"></div>
+      <p class="muted dt-pesan" id="pesan">Memuat data...</p>
+    </section>
+
+    <div class="dt-aksi">
+      <button class="btn-ghost" id="btnHapus" type="button">Hapus semua data</button>
+      <span class="muted" id="info"></span>
+    </div>
+  </div>
+
+  <script src="../assets/js/common.js"></script>
+  <script src="data.js"></script>
+</body>
+</html>
