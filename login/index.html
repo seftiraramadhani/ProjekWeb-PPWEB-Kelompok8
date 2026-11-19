@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="id" data-base="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masuk · Spin Kelompok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body class="login-body">
+  <span class="orb" style="--c:#ff6b6b;width:62px;height:62px;left:9%;top:8%;--d:6s"></span>
+  <span class="orb" style="--c:#4ecdc4;width:46px;height:46px;right:9%;top:13%;--d:8s"></span>
+  <span class="orb" style="--c:#5b8def;width:40px;height:40px;left:13%;bottom:14%;--d:7s"></span>
+  <span class="orb" style="--c:#b388ff;width:74px;height:74px;right:8%;bottom:10%;--d:9s"></span>
+
+  <main class="auth" id="auth">
+    <div class="logo" aria-hidden="true"><i></i><b></b></div>
+    <h1>Spin Kelompok</h1>
+
+    <div class="tabs" id="tabs" data-mode="login" role="tablist" aria-label="Pilih Masuk atau Daftar">
+      <button type="button" role="tab" id="tabLogin" aria-selected="true">Masuk</button>
+      <button type="button" role="tab" id="tabReg" aria-selected="false">Daftar</button>
+    </div>
+
+    <form id="authForm" novalidate>
+      <label class="label" for="username">Nama pengguna</label>
+      <input class="input" id="username" name="username" autocomplete="username" placeholder="Nama pengguna kamu" maxlength="30" autocapitalize="none" spellcheck="false">
+
+      <label class="label" for="password">Kata sandi</label>
+      <div class="pw">
+        <input class="input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Kata sandi">
+        <button type="button" id="togglePw" aria-label="Tampilkan kata sandi">Lihat</button>
+      </div>
+
+      <div id="confirmWrap" hidden>
+        <label class="label" for="confirm">Ulangi kata sandi</label>
+        <input class="input" id="confirm" type="password" autocomplete="new-password" placeholder="Ketik ulang kata sandi">
+      </div>
+
+      <label class="check" id="rememberWrap">
+        <input type="checkbox" id="remember">
+        <span>Ingat saya di perangkat ini</span>
+      </label>
+
+      <p class="msg" id="msg" role="alert" hidden></p>
+
+      <button class="btn-3d block" id="submitBtn" type="submit">Masuk</button>
+    </form>
+
+    <div class="or"><span>atau</span></div>
+    <button class="btn-ghost block" id="guestBtn" type="button">Masuk sebagai tamu</button>
+
+    <p class="foot">PPWEB · Kelompok 8</p>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>

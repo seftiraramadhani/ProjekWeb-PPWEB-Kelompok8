@@ -78,7 +78,7 @@
       </a>
 
       <!-- EXIT (bentuk panah sesuai sketsa) -->
-      <a class="tile t-exit" href="../index.html" id="exitLink">
+      <a class="tile t-exit" href="../index.html" id="exitLink" data-exit>
         <span class="arrow"><b>Exit</b><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
     </main>
@@ -86,8 +86,9 @@
 
   <script src="../assets/js/common.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const u = SK.getUser();
+    document.addEventListener("DOMContentLoaded", async () => {
+      const u = await SK.getUser();
+      if (!u) { location.replace("../login/"); return; }   // belum masuk -> ke halaman login
       document.getElementById("userName").textContent = u.name;
       document.getElementById("guestBadge").hidden = !u.guest;
     });
