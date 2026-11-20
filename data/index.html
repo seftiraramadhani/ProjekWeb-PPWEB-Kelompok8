@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Data Kelompok · Spin Kelompok</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="data.css">
 </head>
@@ -14,11 +15,12 @@
     <header data-topbar data-active="data"></header>
 
     <section class="dt-hero">
+      <p class="dt-eyebrow">Hasil tersimpan</p>
       <h1>Data Kelompok</h1>
-      <p>Siapa ada di kelompok berapa, dan kelompok mana tampil lebih dulu.</p>
+      <p class="dt-sub">Siapa ada di kelompok berapa, dan kelompok mana tampil lebih dulu.</p>
     </section>
 
-    <section class="dt-stats">
+    <section class="dt-stats" aria-label="Ringkasan">
       <div class="card"><span class="muted">Jumlah kelompok</span><strong id="stKelompok">0</strong></div>
       <div class="card"><span class="muted">Jumlah anggota</span><strong id="stAnggota">0</strong></div>
       <div class="card"><span class="muted">Tampil pertama</span><strong class="kuning" id="stPertama">-</strong></div>
@@ -27,11 +29,16 @@
     <section class="card dt-tabel">
       <div class="dt-kepala"><span>Urutan tampil</span><span>Kelompok</span><span>Anggota</span></div>
       <div id="baris"></div>
-      <p class="muted dt-pesan" id="pesan">Memuat data...</p>
+      <p class="muted dt-pesan" id="pesan" aria-live="polite">Memuat data...</p>
+      <div class="dt-cta">
+        <a class="btn-pill" href="../spin/">Spin Putar</a>
+        <a class="btn-ghost" href="../gacha/">Spin Gacha</a>
+        <a class="btn-ghost" href="../detektif/">Detektif</a>
+      </div>
     </section>
 
     <div class="dt-aksi">
-      <button class="btn-ghost" id="btnHapus" type="button">Hapus semua data</button>
+      <button class="btn-ghost danger" id="btnHapus" type="button">Hapus semua data</button>
       <span class="muted" id="info"></span>
     </div>
   </div>
