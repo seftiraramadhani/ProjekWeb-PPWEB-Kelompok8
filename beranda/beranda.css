@@ -19,10 +19,12 @@
 }
 .tile::before { /* cahaya warna aksen di pojok */
   content: ""; position: absolute; z-index: -1; width: 260px; height: 260px; right: -90px; top: -90px; border-radius: 50%;
-  background: var(--accent); opacity: .22; filter: blur(30px); transition: opacity .3s, transform .4s;
+  /* gradien radial + mode screen: warna aksen tetap bersih (tidak keruh/cokelat di atas ungu) */
+  background: radial-gradient(circle, var(--accent) 0%, transparent 62%); mix-blend-mode: screen;
+  opacity: .55; transition: opacity .3s, transform .4s;
 }
 .tile:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 24px 44px rgba(8, 3, 36, .5); }
-.tile:hover::before { opacity: .42; transform: scale(1.2); }
+.tile:hover::before { opacity: .6; transform: scale(1.2); }
 .t-spin { animation-delay: .05s; } .t-gacha { animation-delay: .12s; } .t-detektif { animation-delay: .19s; }
 .t-data { animation-delay: .26s; } .t-exit { animation-delay: .33s; }
 @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
