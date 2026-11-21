@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Detektif · Spin Kelompok</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/detektif.css">
 </head>
@@ -15,69 +16,67 @@
 
     <main class="dk-layout">
       <!-- Panel kiri: pengaturan -->
-      <aside class="card stack" style="--gap:14px">
+      <aside class="card dk-side">
         <h2>Pengaturan detektif</h2>
 
-        <div>
+        <div class="dk-field">
           <label class="label" for="inNama">Tambah nama</label>
           <div class="dk-row">
-            <input class="input" id="inNama" placeholder="Contoh: Hadi">
-            <button class="btn-pill" id="btnNama">Tambah</button>
+            <input class="input" id="inNama" placeholder="Contoh: Hadi" autocomplete="off" maxlength="30">
+            <button class="btn-pill" id="btnNama" type="button">Tambah</button>
           </div>
           <div class="dk-chips" id="listNama"></div>
         </div>
 
-        <div>
+        <div class="dk-field">
           <label class="label" for="inSoal">Tambah soal</label>
           <div class="dk-row">
-            <input class="input" id="inSoal" placeholder="Tulis pertanyaan">
-            <button class="btn-pill" id="btnSoal">Tambah</button>
+            <input class="input" id="inSoal" placeholder="Tulis pertanyaan" autocomplete="off" maxlength="200">
+            <button class="btn-pill" id="btnSoal" type="button">Tambah</button>
           </div>
           <div class="dk-chips" id="listSoal"></div>
         </div>
 
-        <div>
+        <div class="dk-field">
           <label class="label" for="inJumlah">Jumlah kelompok</label>
           <div class="dk-row">
-            <input class="input dk-small" id="inJumlah" type="number" min="1" value="3">
-            <button class="btn-ghost" id="btnReset">Mulai ulang</button>
+            <input class="input dk-small" id="inJumlah" type="number" min="1" value="3" inputmode="numeric">
+            <button class="btn-ghost" id="btnReset" type="button">Mulai ulang</button>
           </div>
         </div>
       </aside>
 
       <!-- Panel kanan: arena -->
       <section class="card dk-arena">
-        <h2>Spin Detektif</h2>
-        <span class="chip" id="status">Isi nama, soal, dan jumlah kelompok dulu</span>
+        <h1>Spin Detektif</h1>
+        <span class="chip" id="status" aria-live="polite">Isi nama, soal, dan jumlah kelompok dulu</span>
 
         <div class="dk-wheel-wrap">
-          <div class="dk-pointer"></div>
-          <canvas id="wheel" width="320" height="320"></canvas>
+          <div class="dk-pointer" aria-hidden="true"></div>
+          <canvas id="wheel" width="320" height="320" role="img" aria-label="Roda nama peserta"></canvas>
         </div>
 
-        <button class="btn-3d" id="btnSpin">Spin nama</button>
+        <button class="btn-3d" id="btnSpin" type="button">Spin nama</button>
 
         <div class="dk-panel" id="panelJawab" hidden>
-        <p class="muted" id="soalLabel"></p>
-        <p class="dk-soal" id="soalTeks"></p>
-        <div class="dk-row">
-          <button class="btn-pill" id="btnBenar">Benar</button>
-          <button class="btn-ghost" id="btnSalah">Salah</button>
+          <p class="muted" id="soalLabel"></p>
+          <p class="dk-soal" id="soalTeks"></p>
+          <div class="dk-row">
+            <button class="btn-pill" id="btnBenar" type="button">Benar</button>
+            <button class="btn-ghost" id="btnSalah" type="button">Salah</button>
+          </div>
         </div>
+
+        <div class="dk-panel" id="panelPilih" hidden>
+          <p id="pilihJudul"></p>
+          <div class="dk-pilih" id="pilihDaftar"></div>
         </div>
 
-<div class="dk-panel" id="panelPilih" hidden>
-  <p id="pilihJudul"></p>
-  <div class="dk-pilih" id="pilihDaftar"></div>
-</div>
-
-<div class="dk-panel" id="panelSimpan" hidden>
-  <p>Semua kelompok sudah terisi.</p>
-  <button class="btn-pill" id="btnSimpan">Simpan hasil</button>
-  <p class="muted" id="pesanSimpan"></p>
-</div>
-
-<div class="dk-groups" id="groups"></div>
+        <div class="dk-panel" id="panelSimpan" hidden>
+          <p>Semua kelompok sudah terisi.</p>
+          <button class="btn-pill" id="btnSimpan" type="button">Simpan hasil</button>
+          <p class="muted" id="pesanSimpan" aria-live="polite"></p>
+        </div>
 
         <div class="dk-groups" id="groups"></div>
       </section>
