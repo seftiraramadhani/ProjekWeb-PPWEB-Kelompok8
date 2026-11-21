@@ -34,8 +34,6 @@ Go → Login (Masuk / Daftar / Tamu) → Beranda → Spin Putar
 
 ## Tangkapan layar
 
-> Ganti gambar di bawah dengan screenshot dari laptop kalian (simpan di folder `docs/screenshots/`).
-
 | Go | Login |
 |----|-------|
 | ![Go](docs/screenshots/go.png) | ![Login](docs/screenshots/login.png) |
@@ -91,6 +89,7 @@ Tiga tabel:
 Pekerjaan dibagi menjadi dua bagian yang berjalan paralel. Setiap fitur dikerjakan di branch sendiri (`feature/...`), digabung lewat Pull Request, dan direview oleh anggota lain sebelum merge. Riwayat kerja bisa dilihat di tab **Pull requests** dan **Commits**.
 
 ## Cara menjalankan
+
 1. Pasang **XAMPP** (Apache dan MySQL), lalu nyalakan keduanya di XAMPP Control Panel.
 2. Clone repo ke folder `C:\xampp\htdocs\`:
    `git clone https://github.com/seftiraramadhani/ProjekWeb-PPWEB-Kelompok8.git`
@@ -104,5 +103,6 @@ Pekerjaan dibagi menjadi dua bagian yang berjalan paralel. Setiap fitur dikerjak
 > `api/db.php` tidak ikut ke GitHub (ada di `.gitignore`), jadi setiap orang membuat sendiri.
 
 ### Kalau phpMyAdmin menolak tersambung
+
 Biasanya port MySQL bukan 3306. Di `C:\xampp\phpMyAdmin\config.inc.php`, tambahkan di bawah baris `host`:
 `$cfg['Servers'][$i]['port'] = '3308';`
