@@ -22,9 +22,28 @@ const SK = {
     }
   },
 
-  // Keluar: panggil api/logout.php (POST), lalu kembali ke halaman Go.
+  // Penjagaan halaman: belum punya sesi -> langsung ke login/. Tamu lolos (guest.php membuat sesi).
+  // Dipasang di beranda, spin, gacha, detektif, data lewat <script>SK.jaga();</script>.
+  sesi() {
+    if (!SK._sesi) {
+      SK._sesi = fetch(SK.base + "api/cek_sesi.php", { credentials: "same-origin" })
+        .then((r) => (r.ok ? r.json() : { login: false }))
+        .catch(() => ({ login: false }));
+    }
+    return SK._sesi;
+  },
+  async jaga() {
+    const s = await SK.sesi();
+    if (!s.login) location.replace(SK.base + "login/");
+    return s;
+  },
+
+  // Keluar: panggil api/logout.php (POST), bersihkan sisa data di browser, lalu kembali ke halaman Go.
   async logout() {
     try { await fetch(SK.base + "api/logout.php", { method: "POST", credentials: "same-origin" }); } catch (e) {}
+    try {
+      ["sk_spin_state", "sk_gacha_state", "sk_last_result", "sk_last_result_gacha"].forEach((k) => localStorage.removeItem(k));
+    } catch (e) {}
     location.href = SK.base + "index.html";
   },
 
@@ -35,6 +54,8 @@ const SK = {
     try { localStorage.setItem("sk_sound", on ? "on" : "off"); } catch (e) {}
   },
 };
+
+SK.keluar = SK.logout; // nama lain, sama dengan logout()
 
 const ICON = {
   dots: '<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>',
